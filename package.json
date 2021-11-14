@@ -1,0 +1,19 @@
+{
+  "name": "collecta-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denisbalazic/collecta-api.git"
+  },
+  "author": "denis balazic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denisbalazic/collecta-api/issues"
+  },
+  "homepage": "https://github.com/denisbalazic/collecta-api#readme"
+}
