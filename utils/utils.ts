@@ -1,14 +1,14 @@
 import { ValidationResult } from 'joi';
-import { IError } from '../domain/IResponse';
+import { CustomError } from './CustomError';
 
 // eslint-disable-next-line import/prefer-default-export
-export const mapJoiValidationErrors = ({ error }: ValidationResult): IError[] => {
-  if (error) {
-    return error.details.map((err) => ({
+export const processJoiValidationErrors = ({ error }: ValidationResult): void => {
+  if (error && error.details.length > 0) {
+    const validationErrors = error.details.map((err) => ({
       type: 'validation',
       field: err.context?.label,
       message: err.message,
     }));
+    throw new CustomError('validations', validationErrors, '');
   }
-  return [];
 };
