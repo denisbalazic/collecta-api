@@ -17,30 +17,29 @@ const userUpdateSchema = userSchema.keys({
   _id: Joi.string().alphanum().min(24).max(24).required(),
 });
 
-const userService = {
-  createUser: async (user: IUser) => {
-    const result = userCreateSchema.validate(user);
-    if (result.error) {
-      return result.error;
-    }
-    const newUser = new User(user);
-    return newUser.save();
-  },
-  findUser: async (id: string) => {
-    return User.findOne({ _id: id });
-  },
-  updateUser: async (user: IUser) => {
-    const result = userUpdateSchema.validate(user);
-    if (result.error) {
-      return result.error;
-    }
-    const foundUser = await User.findOne({ _id: user._id });
-    return foundUser.set(user).save();
-  },
-  deleteUser: async (id: string) => {
-    const user = await User.findOne({ _id: id });
-    return user.deleteOne();
-  },
+export const createUser = async (user: IUser) => {
+  const result = userCreateSchema.validate(user);
+  if (result.error) {
+    return result.error;
+  }
+  const newUser = new User(user);
+  return newUser.save();
 };
 
-export default userService;
+export const findUser = async (id: string) => {
+  return User.findOne({ _id: id });
+};
+
+export const updateUser = async (user: IUser) => {
+  const result = userUpdateSchema.validate(user);
+  if (result.error) {
+    return result.error;
+  }
+  const foundUser = await User.findOne({ _id: user._id });
+  return foundUser.set(user).save();
+};
+
+export const deleteUser = async (id: string) => {
+  const user = await User.findOne({ _id: id });
+  return user.deleteOne();
+};
