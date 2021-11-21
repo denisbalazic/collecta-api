@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import User from '../models/user';
+import User from '../models/userModel';
 import { IUser } from '../domain/IUser';
 
 const userSchema = Joi.object().keys({
