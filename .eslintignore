@@ -1,4 +1,9 @@
 **/node_modules/*
+**/.idea/*
 **/out/*
+.gitignore
+.eslintignore
+.prettierignore
+*.json
 *.css
 *.svg

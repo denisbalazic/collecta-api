@@ -9,19 +9,19 @@ const app = express();
 const { databaseURL, port } = environmentVars;
 
 mongoose.connect(databaseURL).then(
-  () => console.log('MongoDB is connected'),
-  (err) => console.log(err)
+    () => console.log('MongoDB is connected'),
+    (err) => console.log(err)
 );
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Well done!');
+    res.send('Well done!');
 });
 
 app.use('/users', userRoutes);
 
 app.listen(port, () => {
-  console.log('The application is listening on port 3000!');
+    console.log('The application is listening on port 3000!');
 });
