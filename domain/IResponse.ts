@@ -1,10 +1,10 @@
 export interface IResponseError {
-    type: string;
+    type?: string;
     field?: string;
-    message: string;
+    message?: string;
 }
 
 export interface IResponse {
     data: any;
-    errors: IResponseError[];
+    errors?: IResponseError[];
 }

@@ -1,12 +1,11 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import environmentVars from './config/index';
+import { databaseURL, port } from './config';
 import userRoutes from './routes/userRoutes';
+import authRoutes from './routes/authRoutes';
 
 const app = express();
-
-const { databaseURL, port } = environmentVars;
 
 mongoose.connect(databaseURL).then(
     () => console.log('MongoDB is connected'),
@@ -20,6 +19,7 @@ app.get('/', (req, res) => {
     res.send('Well done!');
 });
 
+app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 
 app.listen(port, () => {

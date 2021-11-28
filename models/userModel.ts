@@ -1,18 +1,9 @@
 import mongoose from 'mongoose';
+import { IUserModel } from '../domain/IUser';
 
 const userSchema = new mongoose.Schema(
     {
-        firstName: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        lastName: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        nickname: {
+        name: {
             type: String,
             required: true,
             trim: true,
@@ -29,6 +20,11 @@ const userSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
+        tokens: [
+            {
+                type: String,
+            },
+        ],
     },
     {
         timestamps: true,
@@ -38,7 +34,8 @@ const userSchema = new mongoose.Schema(
 userSchema.methods.toJSON = function () {
     const userObj = this.toObject();
     delete userObj.password;
+    delete userObj.tokens;
     return userObj;
 };
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model<IUserModel>('User', userSchema);
