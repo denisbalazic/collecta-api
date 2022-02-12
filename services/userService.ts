@@ -1,13 +1,7 @@
 import User from '../models/userModel';
 import { IUser } from '../domain/IUser';
-import { validateUserRegistration, validateUserUpdate } from '../validations/userValidations';
+import { validateUserUpdate } from '../validations/userValidations';
 import { CustomError } from '../utils/CustomError';
-
-export const createUser = async (user: IUser) => {
-    await validateUserRegistration(user);
-    const newUser = new User(user);
-    return newUser.save();
-};
 
 export const findUser = async (id: string) => {
     return User.findOne({ _id: id });
