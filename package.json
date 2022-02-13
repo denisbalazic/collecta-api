@@ -19,7 +19,16 @@
   },
   "homepage": "https://github.com/denisbalazic/collecta-api#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^8.5.6",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "joi-password": "^2.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.13"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
