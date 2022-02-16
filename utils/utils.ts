@@ -6,7 +6,6 @@ import { IResponseError } from '../domain/IResponse';
 export const processJoiValidationErrors = ({ error }: ValidationResult): IResponseError[] => {
     if (error && error.details.length > 0) {
         return error.details.map((err) => ({
-            type: 'validation',
             field: err.context?.label,
             message: err.message,
         }));

@@ -2,14 +2,15 @@ import { IResponseError } from '../domain/IResponse';
 
 // eslint-disable-next-line import/prefer-default-export
 export class CustomError extends Error {
-    private type: string;
+    public statusCode: number;
 
-    private errors: IResponseError[];
+    public errors: IResponseError[];
 
-    constructor(type: string, errors: IResponseError[], message: string) {
+    constructor(statusCode: number, errors: IResponseError[], message: string) {
         super();
-        this.type = type;
+        this.statusCode = statusCode;
         this.errors = errors;
         this.message = message;
+        this.name = 'CustomError';
     }
 }

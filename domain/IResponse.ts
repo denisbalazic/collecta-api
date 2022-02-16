@@ -1,5 +1,4 @@
 export interface IResponseError {
-    type?: string;
     field?: string;
     message?: string;
 }

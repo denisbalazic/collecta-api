@@ -1,7 +1,7 @@
 import joi from 'joi';
 import joiPassword from 'joi-password';
 import { processJoiValidationErrors } from '../utils/utils';
-import { IUser, IUserModel } from '../domain/IUser';
+import { IUser } from '../domain/IUser';
 import User from '../models/userModel';
 import { CustomError } from '../utils/CustomError';
 import { IResponseError } from '../domain/IResponse';
@@ -37,7 +37,6 @@ const checkIfEmailExists = async (user: IUser): Promise<IResponseError | null> =
     const foundUser = await User.findOne({ email: user.email });
     if ((!user._id && foundUser) || (user._id && foundUser && foundUser.id !== user._id)) {
         return {
-            type: 'validations',
             field: 'email',
             message: 'User with the same email is already registered',
         };
@@ -49,7 +48,6 @@ const checkIfNameExists = async (user: IUser): Promise<IResponseError | null> =>
     const foundUser = await User.findOne({ name: user.name });
     if (foundUser) {
         return {
-            type: 'validations',
             field: 'name',
             message: 'User with the same name is already registered',
         };
@@ -60,7 +58,6 @@ const checkIfNameExists = async (user: IUser): Promise<IResponseError | null> =>
 const checkIfPasswordsMatch = (user: IUser): IResponseError | null => {
     if (user.password && user.password !== user.confirmedPassword) {
         return {
-            type: 'validations',
             field: 'confirmedPassword',
             message: 'Passwords do not match',
         };
@@ -72,7 +69,6 @@ const checkIfUserExists = async (user: IUser): Promise<IResponseError | null> =>
     const foundUser = await User.findOne({ _id: user._id });
     if (!foundUser) {
         return {
-            type: 'validations',
             field: '_id',
             message: 'User with this id does not exist',
         };
@@ -93,7 +89,7 @@ async function validateCommon(user: IUser, validationErrors: IResponseError[]) {
     if (passwordValidationErr) validationErrors.push(passwordValidationErr);
 
     if (validationErrors.length > 0) {
-        throw new CustomError('validations', validationErrors, '');
+        throw new CustomError(400, validationErrors, '');
     }
 }
 

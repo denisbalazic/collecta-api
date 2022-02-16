@@ -5,7 +5,7 @@ import { CustomError } from '../utils/CustomError';
 
 const router = express.Router({ mergeParams: true });
 
-router.get('/me', authenticate, async (req: any, res) => {
+router.get('/me', authenticate, async (req: any, res, next) => {
     try {
         const foundUser = await findUser(req.userId);
         if (!foundUser) {
@@ -13,28 +13,28 @@ router.get('/me', authenticate, async (req: any, res) => {
         }
         res.status(200).json(foundUser);
     } catch (err) {
-        res.status(500).send(err);
+        next(err);
     }
 });
 
-router.put('/me', authenticate, async (req: any, res) => {
+router.put('/me', authenticate, async (req: any, res, next) => {
     try {
         if (req.userId !== req.body._id) {
-            throw new CustomError('validation', [], 'Logged user id does not match update object id');
+            throw new CustomError(403, [], 'Logged user id does not match update object id');
         }
         const updatedUser = await updateUser(req.body);
         res.status(200).json(updatedUser);
     } catch (err) {
-        res.status(500).send(err);
+        next(err);
     }
 });
 
-router.delete('/me', authenticate, async (req: any, res) => {
+router.delete('/me', authenticate, async (req: any, res, next) => {
     try {
         const result = await deleteUser(req.userId);
         res.status(200).send(result);
     } catch (err) {
-        res.status(500).send(err);
+        next(err);
     }
 });
 
