@@ -6,12 +6,14 @@ import {
     findCollections,
     updateCollection,
 } from '../services/collectionService';
+import { authenticate } from '../middleware/auth';
+import { ICollection } from '../domain/ICollection';
 
 const router = express.Router({ mergeParams: true });
 
-router.get('/', async (req, res, next) => {
+router.get('/', authenticate, async (req, res, next) => {
     try {
-        const foundCollections = await findCollections();
+        const foundCollections: ICollection[] = await findCollections();
         if (!foundCollections) {
             res.status(404).send('There are no collections with those parameters');
         }
@@ -21,19 +23,19 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', authenticate, async (req, res, next) => {
     try {
-        const newCollection = req.body;
-        const createdCollection = await createCollection(newCollection);
+        const newCollection: ICollection = req.body;
+        const createdCollection: ICollection = await createCollection(newCollection);
         res.status(201).json(createdCollection);
     } catch (err) {
         next(err);
     }
 });
 
-router.get('/:collectionId', async (req, res, next) => {
+router.get('/:collectionId', authenticate, async (req, res, next) => {
     try {
-        const foundCollection = await findCollection(req.params.collectionId);
+        const foundCollection: ICollection = await findCollection(req.params.collectionId);
         if (!foundCollection) {
             res.status(404).send('There is no collection with specified id');
         }
@@ -43,19 +45,19 @@ router.get('/:collectionId', async (req, res, next) => {
     }
 });
 
-router.put('/:collectionId', async (req, res, next) => {
+router.put('/:collectionId', authenticate, async (req, res, next) => {
     try {
-        const updatedCollection = await updateCollection(req.body, req.params.collectionId);
+        const updatedCollection: ICollection = await updateCollection(req.body, req.params.collectionId);
         res.status(200).json(updatedCollection);
     } catch (err) {
         next(err);
     }
 });
 
-router.delete('/:collectionId', async (req, res, next) => {
+router.delete('/:collectionId', authenticate, async (req, res, next) => {
     try {
-        const result = await deleteCollection(req.params.collectionId);
-        res.status(200).send(result);
+        const deletedCollection: ICollection = await deleteCollection(req.params.collectionId);
+        res.status(200).send(deletedCollection);
     } catch (err) {
         next(err);
     }
