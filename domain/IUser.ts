@@ -16,3 +16,19 @@ export interface IUser {
     confirmedPassword?: string;
     oldPassword?: string;
 }
+
+// ITestUser is used only for testing purposes; it can store token
+export interface ITestUser {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
+    tokens: string[];
+}
+
+// ITestCredentials is used only for testing purposes; it can store token
+export interface ITestCredentials {
+    email: string;
+    password: string;
+    tokens: string[];
+}
