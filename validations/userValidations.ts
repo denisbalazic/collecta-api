@@ -1,5 +1,6 @@
 import joi from 'joi';
 import joiPassword from 'joi-password';
+import bcrypt from 'bcrypt';
 import { processJoiValidationErrors } from '../utils/utils';
 import { IUser } from '../domain/IUser';
 import User from '../models/userModel';
@@ -28,9 +29,13 @@ const registerUserSchema = userSchema.keys({
 
 const updateUserSchema = userSchema.keys({
     _id: joi.string().alphanum().min(24).max(24).required(),
-    oldPassword: joi.string(),
-    password: paswordSchema,
-    confirmedPassword: joi.string(),
+});
+
+const updatePasswordSchema = joi.object().keys({
+    _id: joi.string().alphanum().min(24).max(24).required(),
+    oldPassword: joi.string().required(),
+    password: paswordSchema.required(),
+    confirmedPassword: joi.string().required(),
 });
 
 const checkIfEmailExists = async (user: IUser): Promise<IResponseError | null> => {
@@ -76,7 +81,19 @@ const checkIfUserExists = async (user: IUser): Promise<IResponseError | null> =>
     return null;
 };
 
-// TODO: Check if old password is correct
+const checkOldPassword = async (user: IUser): Promise<IResponseError | null> => {
+    const foundUser = await User.findOne({ _id: user._id });
+    if (foundUser) {
+        const isPasswordValid = user.oldPassword && bcrypt.compareSync(user.oldPassword, foundUser.password);
+        if (!isPasswordValid) {
+            return {
+                field: 'oldPassword',
+                message: 'Old password is not a match',
+            };
+        }
+    }
+    return null;
+};
 
 async function validateCommon(user: IUser, validationErrors: IResponseError[]) {
     const emailValidationErr = await checkIfEmailExists(user);
@@ -106,4 +123,21 @@ export const validateUserUpdate = async (user: IUser): Promise<void> => {
     if (existenceValidationErr) validationErrors.push(existenceValidationErr);
 
     await validateCommon(user, validationErrors);
+};
+
+export const validatePasswordUpdate = async (user: IUser): Promise<void> => {
+    const validationErrors = processJoiValidationErrors(updatePasswordSchema.validate(user));
+
+    const existenceValidationErr = await checkIfUserExists(user);
+    if (existenceValidationErr) validationErrors.push(existenceValidationErr);
+
+    const passwordValidationErr = await checkIfPasswordsMatch(user);
+    if (passwordValidationErr) validationErrors.push(passwordValidationErr);
+
+    const oldPasswordValidationErr = await checkOldPassword(user);
+    if (oldPasswordValidationErr) validationErrors.push(oldPasswordValidationErr);
+
+    if (validationErrors.length > 0) {
+        throw new CustomError(400, validationErrors, '');
+    }
 };
