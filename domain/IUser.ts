@@ -25,3 +25,10 @@ export interface ITestUser {
     password: string;
     tokens: string[];
 }
+
+// ITestCredentials is used only for testing purposes; it can store token
+export interface ITestCredentials {
+    email: string;
+    password: string;
+    tokens: string[];
+}

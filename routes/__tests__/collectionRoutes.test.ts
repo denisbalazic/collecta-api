@@ -1,32 +1,25 @@
 import supertest from 'supertest';
 import app from '../../app';
-import {
-    authenticateTestUser,
-    clearDatabase,
-    closeDatabase,
-    connectToDatabase,
-    seedDatabase,
-} from '../../tests/testDbHandler';
+import { clearDatabase, closeDatabase, connectToDatabase, seedDatabase } from '../../tests/testDbHandler';
 import collectionModel from '../../models/collectionModel';
+import { authedUser, collectionsSeed } from '../../tests/dbSeeds';
+import userModel from '../../models/userModel';
 
 const request = supertest(app);
 
 describe('Collection endpoints', () => {
-    const id1 = '6207a4ad48e6c1fceb13199c';
-    const id2 = '6207a4ad48e6c1fceb13199d';
+    const id1 = collectionsSeed[0]._id;
+    const id2 = collectionsSeed[1]._id;
     const nonexistentId = '6207a4ad48e6c1fceb15555d';
-    let token: string;
+    const token = authedUser.user.tokens[0];
 
     beforeAll(async () => {
         await connectToDatabase();
     });
 
     beforeEach(async () => {
-        token = (await authenticateTestUser()).token;
-        await seedDatabase(collectionModel, [
-            { _id: id1, name: 'Anna' },
-            { _id: id2, name: 'Barbara' },
-        ]);
+        await seedDatabase(userModel, [authedUser.user]);
+        await seedDatabase(collectionModel, collectionsSeed);
     });
 
     afterEach(async () => {
