@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import collectionRoutes from './routes/collectionRoutes';
@@ -7,6 +8,8 @@ import errorHandler from './middleware/errorHandler';
 
 const app = express();
 
+// TODO: Enable cors for only one route
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
