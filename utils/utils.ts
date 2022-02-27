@@ -1,5 +1,4 @@
 import { ValidationResult } from 'joi';
-import { CustomError } from './CustomError';
 import { IResponseError } from '../domain/IResponse';
 
 // eslint-disable-next-line import/prefer-default-export

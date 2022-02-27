@@ -8,12 +8,13 @@ import {
 } from '../services/collectionService';
 import { authenticate } from '../middleware/auth';
 import { ICollection } from '../domain/ICollection';
+import { IPageableResponse } from '../domain/IResponse';
 
 const router = express.Router({ mergeParams: true });
 
-router.get('/', authenticate, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
-        const foundCollections: ICollection[] = await findCollections();
+        const foundCollections: IPageableResponse<ICollection> = await findCollections(req.query);
         if (!foundCollections) {
             res.status(404).send('There are no collections with those parameters');
         }

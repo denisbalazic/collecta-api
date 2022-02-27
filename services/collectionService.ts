@@ -2,9 +2,11 @@ import { validateCollectionCreation, validateCollectionUpdate } from '../validat
 import { ICollection, ICollectionModel } from '../domain/ICollection';
 import Collection from '../models/collectionModel';
 import { CustomError } from '../utils/CustomError';
+import { IPageableQuery, IPageableResponse } from '../domain/IResponse';
+import { getPaginatedResult } from '../utils/pagination';
 
-export const findCollections = async (): Promise<ICollection[]> => {
-    return Collection.find();
+export const findCollections = async (pageable: IPageableQuery): Promise<IPageableResponse<ICollection>> => {
+    return getPaginatedResult(Collection, pageable);
 };
 
 export const createCollection = async (collection: ICollection): Promise<ICollection> => {
