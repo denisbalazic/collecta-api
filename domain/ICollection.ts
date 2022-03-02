@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+import { IWithTimeStamp } from './IMongo';
 
-export interface ICollection {
+export interface ICollection extends IWithTimeStamp {
     _id?: string;
     name: string;
 }

@@ -4,6 +4,7 @@ import Collection from '../models/collectionModel';
 import { CustomError } from '../utils/CustomError';
 import { IPageableQuery, IPageableResponse } from '../domain/IResponse';
 import { getPaginatedResult } from '../utils/pagination';
+import { removeTimeStamp } from '../utils/utils';
 
 export const findCollections = async (pageable: IPageableQuery): Promise<IPageableResponse<ICollection>> => {
     return getPaginatedResult(Collection, pageable);
@@ -22,7 +23,7 @@ export const findCollection = async (id: string): Promise<ICollection> => {
 };
 
 export const updateCollection = async (collection: ICollection, id: string): Promise<ICollection> => {
-    await validateCollectionUpdate(collection, id);
+    await validateCollectionUpdate(removeTimeStamp(collection), id);
     const foundCollection: ICollectionModel = await Collection.findOne({ _id: id });
     if (!foundCollection) throw new CustomError(404, [], 'Resource not found');
     return foundCollection.set(collection).save();
