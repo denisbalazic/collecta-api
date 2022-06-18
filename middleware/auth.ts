@@ -15,13 +15,13 @@ export const authenticate = async (req: any, res: Response, next: NextFunction) 
             const { id } = jwt.verify(token, jwtSecret as Secret);
             const user: IUserModel | null = await User.findOne({ _id: id, tokens: token });
             if (!user) {
-                throw new CustomError('authentication', [{}], 'You need to be logged in');
+                throw new CustomError(401, [{}], 'You need to be logged in');
             }
             req.token = token;
             req.userId = user.id;
             next();
         } else {
-            throw new CustomError('authentication', [{}], 'You need to be logged in');
+            throw new CustomError(401, [{}], 'You need to be logged in');
         }
     } catch (err) {
         req.token = undefined;

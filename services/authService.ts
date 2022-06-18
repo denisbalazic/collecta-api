@@ -19,7 +19,7 @@ export const register = async (user: IUser) => {
     await validateUserRegistration(user);
     const newUser: IUserModel = new User({
         ...user,
-        password: user.password && bcrypt.hashSync(user.password, 8),
+        password: user.password && (await bcrypt.hashSync(user.password, 8)),
     });
     const createdUser: IUserModel = await newUser.save();
     return generateAuthToken(createdUser);
@@ -27,10 +27,10 @@ export const register = async (user: IUser) => {
 
 export const login = async (user: IUser) => {
     const foundUser: IUserModel | null = await User.findOne({ email: user.email });
-    if (!foundUser) throw new CustomError('authentication', [{}], 'Wrong credentials');
+    if (!foundUser) throw new CustomError(401, [{}], 'Wrong credentials');
 
-    const isPasswordValid = user.password && bcrypt.compareSync(user.password, foundUser.password);
-    if (!isPasswordValid) throw new CustomError('authentication', [{}], 'Wrong credentials');
+    const isPasswordValid = user.password && (await bcrypt.compareSync(user.password, foundUser.password));
+    if (!isPasswordValid) throw new CustomError(401, [{}], 'Wrong credentials');
 
     return generateAuthToken(foundUser);
 };

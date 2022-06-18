@@ -1,18 +1,15 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import { databaseURL, port } from './config';
+import cors from 'cors';
 import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import collectionRoutes from './routes/collectionRoutes';
+import errorHandler from './middleware/errorHandler';
 
 const app = express();
 
-mongoose.connect(databaseURL).then(
-    () => console.log('MongoDB is connected'),
-    (err) => console.log(err)
-);
-
+// TODO: Enable cors for only one route
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -24,6 +21,6 @@ app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/collections', collectionRoutes);
 
-app.listen(port, () => {
-    console.log('The application is listening on port 3000!');
-});
+app.use(errorHandler);
+
+export default app;
