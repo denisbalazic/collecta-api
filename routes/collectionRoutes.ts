@@ -34,7 +34,7 @@ router.post('/', authenticate, async (req, res, next) => {
     }
 });
 
-router.get('/:collectionId', authenticate, async (req, res, next) => {
+router.get('/:collectionId', async (req, res, next) => {
     try {
         const foundCollection: ICollection = await findCollection(req.params.collectionId);
         if (!foundCollection) {
