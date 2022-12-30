@@ -16,15 +16,15 @@ export const createCollection = async (collection: ICollection): Promise<ICollec
     return newCollection.save();
 };
 
-export const findCollection = async (id: string): Promise<ICollection> => {
-    const foundCollection: ICollectionModel = await Collection.findOne({ _id: id });
+export const findCollection = async (id: string): Promise<ICollection | null> => {
+    const foundCollection: ICollectionModel | null = await Collection.findOne({ _id: id });
     if (!foundCollection) throw new CustomError(404, [], 'Resource not found');
     return Collection.findOne({ _id: id });
 };
 
 export const updateCollection = async (collection: ICollection, id: string): Promise<ICollection> => {
     await validateCollectionUpdate(removeTimeStamp(collection), id);
-    const foundCollection: ICollectionModel = await Collection.findOne({ _id: id });
+    const foundCollection: ICollectionModel | null = await Collection.findOne({ _id: id });
     if (!foundCollection) throw new CustomError(404, [], 'Resource not found');
     return foundCollection.set(collection).save();
 };

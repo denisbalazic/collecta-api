@@ -36,7 +36,7 @@ router.post('/', authenticate, async (req, res, next) => {
 
 router.get('/:collectionId', async (req, res, next) => {
     try {
-        const foundCollection: ICollection = await findCollection(req.params.collectionId);
+        const foundCollection: ICollection | null = await findCollection(req.params.collectionId);
         if (!foundCollection) {
             res.status(404).send('There is no collection with specified id');
         }

@@ -1,11 +1,31 @@
 import Joi from 'joi';
 import { processJoiValidationErrors } from '../utils/utils';
-import { ICollection } from '../domain/ICollection';
+import { CollectionType, CollectionVisibility, ICollection, ItemPropertyType } from '../domain/ICollection';
 import Collection from '../models/collectionModel';
 import { CustomError } from '../utils/CustomError';
 
 const collectionSchema = Joi.object().keys({
     name: Joi.string().alphanum().min(2).max(24).required(),
+    description: Joi.string().min(2).max(720),
+    image: Joi.string().uri(),
+    type: Joi.string()
+        .valid(...Object.values(CollectionType))
+        .required(),
+    visibility: Joi.string()
+        .valid(...Object.values(CollectionVisibility))
+        .required(),
+    admins: Joi.array().items(Joi.string()).required(),
+    openItemUpdating: Joi.boolean().required(),
+    itemProperties: Joi.array()
+        .items({
+            label: Joi.string().min(2).max(24).required(),
+            type: Joi.string()
+                .valid(...Object.values(ItemPropertyType))
+                .required(),
+            required: Joi.boolean(),
+            unique: Joi.boolean(),
+        })
+        .required(),
 });
 
 const updateCollectionSchema = collectionSchema.keys({
