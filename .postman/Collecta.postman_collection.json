@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "66d38733-69d6-471a-88b3-b19e80c13541",
+		"name": "Collecta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 201) {\r",
+									"    pm.environment.set(\"authToken\", pm.response.json().token)\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"TEST\",\r\n    \"email\": \"testuser@test.com\",\r\n    \"password\": \"Password1!\",\r\n    \"confirmedPassword\": \"Password1!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "create new user"
+					},
+					"response": []
+				},
+				{
+					"name": "login user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200) {\r",
+									"    pm.environment.set(\"authToken\", pm.response.json().token)\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"testuser@test.com\",\r\n    \"password\": \"Password1!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logoutall user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/logout-all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"logout-all"
+							]
+						},
+						"description": "deletes all tokens from user so all sessions are gone"
+					},
+					"response": []
+				},
+				{
+					"name": "fetch logged user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 201) {\r",
+									"    pm.environment.set(\"authToken\", pm.response.json().token)\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update logged user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"_id\": \"61aa67608932e081b3a5d053\",\r\n    \"name\": \"Testera6789\",\r\n    \"email\": \"testera6789@gnail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete logged user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "collections",
+			"item": [
+				{
+					"name": "index collections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/collections?page=1&size=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"collections"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						},
+						"description": "list of all collections in db"
+					},
+					"response": []
+				},
+				{
+					"name": "create collection",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hulk3\",\r\n    \"description\": \"bla bla\",\r\n    \"type\": \"COMIC\",\r\n    \"visibility\": \"PUBLIC\",\r\n    \"admins\": [\"jhksdfgj\"],\r\n    \"openItemUpdating\": true,\r\n    \"itemProperties\": [{\r\n        \"label\": \"name\", \r\n        \"type\": \"TEXT\", \r\n        \"required\": true, \r\n        \"unique\": true\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/collections",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"collections"
+							]
+						},
+						"description": "create new collection"
+					},
+					"response": []
+				},
+				{
+					"name": "show collection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/collections/6207a4ad48e6c1fceb13199c",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"collections",
+								"6207a4ad48e6c1fceb13199c"
+							]
+						},
+						"description": "show collection with specified id"
+					},
+					"response": []
+				},
+				{
+					"name": "update collection",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"6207a4ad48e6c1fceb13199c\",\r\n    \"name\": \"CraftBeer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/collections/6207a4ad48e6c1fceb13199c",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"collections",
+								"6207a4ad48e6c1fceb13199c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete collection",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/collections/6208dd4ace473d4776343b7d",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"collections",
+								"6208dd4ace473d4776343b7d"
+							]
+						},
+						"description": "show collection with specified id"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "items",
+			"item": [
+				{
+					"name": "index items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/items?page=1&size=5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						},
+						"description": "list of all collections in db"
+					},
+					"response": []
+				},
+				{
+					"name": "create items",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"collectionId\": \"6207a4ad48e6c1fceb13199c\",\r\n    \"properties\": [{\"label\": \"name\", \"type\": \"TEXT\", \"value\": \"sdfsd\"}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/items",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items"
+							]
+						},
+						"description": "create new collection"
+					},
+					"response": []
+				},
+				{
+					"name": "show items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/items/6207a4ad48e6c1fceb13199c",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"6207a4ad48e6c1fceb13199c"
+							]
+						},
+						"description": "show collection with specified id"
+					},
+					"response": []
+				},
+				{
+					"name": "update items",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"6207a4ad48e6c1fceb13199c\",\r\n    \"name\": \"CraftBeer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/items/6207a4ad48e6c1fceb13199c",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"6207a4ad48e6c1fceb13199c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete items",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/items/6208dd4ace473d4776343b7d",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"6208dd4ace473d4776343b7d"
+							]
+						},
+						"description": "show collection with specified id"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if(pm.response.json().token) {",
+					"    pm.collectionVariables.set(\"authToken\", pm.response.json().token);",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"key": "authToken",
+			"value": ""
+		}
+	]
+}
