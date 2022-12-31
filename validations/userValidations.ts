@@ -2,10 +2,10 @@ import joi from 'joi';
 import joiPassword from 'joi-password';
 import bcrypt from 'bcrypt';
 import { processJoiValidationErrors } from '../utils/utils';
-import { IUser } from '../domain/IUser';
+import { IUser } from '../domain/user';
 import User from '../models/userModel';
 import { CustomError } from '../utils/CustomError';
-import { IResponseError } from '../domain/IResponse';
+import { IResponseError } from '../domain/response';
 
 const paswordSchema = joiPassword
     .string()

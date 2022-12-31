@@ -7,8 +7,8 @@ import {
     updateCollection,
 } from '../services/collectionService';
 import { authenticate } from '../middleware/auth';
-import { ICollection } from '../domain/ICollection';
-import { IPageableResponse } from '../domain/IResponse';
+import { ICollection } from '../domain/collection';
+import { IPageableResponse } from '../domain/response';
 
 const router = express.Router({ mergeParams: true });
 

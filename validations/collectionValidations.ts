@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { processJoiValidationErrors } from '../utils/utils';
-import { CollectionType, CollectionVisibility, ICollection, ItemPropertyType } from '../domain/ICollection';
+import { CollectionType, CollectionVisibility, ICollection, ItemPropertyType } from '../domain/collection';
 import Collection from '../models/collectionModel';
 import { CustomError } from '../utils/CustomError';
 

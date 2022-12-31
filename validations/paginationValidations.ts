@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { processJoiValidationErrors } from '../utils/utils';
 import { CustomError } from '../utils/CustomError';
-import { IPageableQuery } from '../domain/IResponse';
+import { IPageableQuery } from '../domain/response';
 
 const collectionSchema = Joi.object().keys({
     page: Joi.number().min(1),

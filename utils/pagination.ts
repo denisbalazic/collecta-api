@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
-import { IPageableQuery, IPageableResponse } from '../domain/IResponse';
+import { IPageableQuery, IPageableResponse } from '../domain/response';
 import { validatePaginatedRequest } from '../validations/paginationValidations';
-import { ICollection } from '../domain/ICollection';
+import { ICollection } from '../domain/collection';
 
 // eslint-disable-next-line import/prefer-default-export
 export const getPaginatedResult = async (

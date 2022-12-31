@@ -1,4 +1,4 @@
-import { IResponseError } from '../domain/IResponse';
+import { IResponseError } from '../domain/response';
 
 // eslint-disable-next-line import/prefer-default-export
 export class CustomError extends Error {

@@ -1,7 +1,7 @@
 import mongoose, { Model } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { ICollection } from '../domain/ICollection';
-import { ITestCredentials, ITestUser, IUser } from '../domain/IUser';
+import { ICollection } from '../domain/collection';
+import { ITestCredentials, ITestUser, IUser } from '../domain/user';
 import userModel from '../models/userModel';
 import { authedUser, user } from './dbSeeds';
 

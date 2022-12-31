@@ -5,7 +5,7 @@ import {
     ICollection,
     IItemProperty,
     ItemPropertyType,
-} from '../domain/ICollection';
+} from '../domain/collection';
 
 const itemPropertySchema = new mongoose.Schema<IItemProperty>(
     {

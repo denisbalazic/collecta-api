@@ -1,5 +1,5 @@
 import User from '../models/userModel';
-import { IUser } from '../domain/IUser';
+import { IUser } from '../domain/user';
 import { validatePasswordUpdate, validateUserUpdate } from '../validations/userValidations';
 import { CustomError } from '../utils/CustomError';
 

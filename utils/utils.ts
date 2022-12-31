@@ -1,6 +1,6 @@
 import { ValidationResult } from 'joi';
-import { IResponseError } from '../domain/IResponse';
-import { ICollection } from '../domain/ICollection';
+import { IResponseError } from '../domain/response';
+import { ICollection } from '../domain/collection';
 
 // eslint-disable-next-line import/prefer-default-export
 export const processJoiValidationErrors = ({ error }: ValidationResult): IResponseError[] => {

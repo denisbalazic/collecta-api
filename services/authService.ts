@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt, { Secret } from 'jsonwebtoken';
 import User from '../models/userModel';
-import { IUser, IUserModel } from '../domain/IUser';
+import { IUser, IUserModel } from '../domain/user';
 import { validateUserRegistration } from '../validations/userValidations';
 import { CustomError } from '../utils/CustomError';
 import { jwtSecret } from '../config';

@@ -1,8 +1,8 @@
 import { validateCollectionCreation, validateCollectionUpdate } from '../validations/collectionValidations';
-import { ICollection, ICollectionModel } from '../domain/ICollection';
+import { ICollection, ICollectionModel } from '../domain/collection';
 import Collection from '../models/collectionModel';
 import { CustomError } from '../utils/CustomError';
-import { IPageableQuery, IPageableResponse } from '../domain/IResponse';
+import { IPageableQuery, IPageableResponse } from '../domain/response';
 import { getPaginatedResult } from '../utils/pagination';
 import { removeTimeStamp } from '../utils/utils';
 

@@ -2,7 +2,7 @@ import jwt, { Secret } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import User from '../models/userModel';
 import { CustomError } from '../utils/CustomError';
-import { IUserModel } from '../domain/IUser';
+import { IUserModel } from '../domain/user';
 import { jwtSecret } from '../config';
 
 // eslint-disable-next-line import/prefer-default-export

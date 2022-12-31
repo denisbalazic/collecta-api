@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { IWithTimeStamp } from './IMongo';
+import { IWithTimeStamp } from './mongo';
 
 export enum CollectionType {
     COMIC = 'COMIC',
