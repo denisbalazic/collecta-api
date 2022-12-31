@@ -1,6 +1,6 @@
 import { ValidationResult } from 'joi';
 import { IResponseError } from '../domain/response';
-import { ICollection } from '../domain/collection';
+import { IWithTimeStamp } from '../domain/mongo';
 
 // eslint-disable-next-line import/prefer-default-export
 export const processJoiValidationErrors = ({ error }: ValidationResult): IResponseError[] => {
@@ -13,7 +13,7 @@ export const processJoiValidationErrors = ({ error }: ValidationResult): IRespon
     return [];
 };
 
-export const removeTimeStamp = (collection: ICollection): ICollection => {
+export const removeTimeStamp = <T extends IWithTimeStamp>(collection: T): Omit<T, keyof IWithTimeStamp> => {
     const { createdAt, updatedAt, __v, ...truncatedObj } = collection;
     return truncatedObj;
 };

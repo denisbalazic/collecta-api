@@ -1,13 +1,12 @@
 import { Model } from 'mongoose';
 import { IPageableQuery, IPageableResponse } from '../domain/response';
 import { validatePaginatedRequest } from '../validations/paginationValidations';
-import { ICollection } from '../domain/collection';
 
 // eslint-disable-next-line import/prefer-default-export
-export const getPaginatedResult = async (
-    model: Model<ICollection>,
+export const getPaginatedResult = async <T>(
+    model: Model<T>,
     pageableQuery: IPageableQuery
-): Promise<IPageableResponse<ICollection>> => {
+): Promise<IPageableResponse<T>> => {
     await validatePaginatedRequest(pageableQuery);
     const page = pageableQuery.page ? parseInt(pageableQuery.page, 10) : 1;
     const size = pageableQuery.size ? parseInt(pageableQuery.size, 10) : 10;

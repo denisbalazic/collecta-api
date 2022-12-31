@@ -7,7 +7,7 @@ import {
     ItemPropertyType,
 } from '../domain/collection';
 
-const itemPropertySchema = new mongoose.Schema<IItemProperty>(
+export const itemPropertySchema = new mongoose.Schema<IItemProperty>(
     {
         label: {
             type: String,

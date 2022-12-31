@@ -5,6 +5,7 @@ import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import collectionRoutes from './routes/collectionRoutes';
 import errorHandler from './middleware/errorHandler';
+import itemRoutes from './routes/itemRoutes';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/collections', collectionRoutes);
+app.use('/items', itemRoutes);
 
 app.use(errorHandler);
 
