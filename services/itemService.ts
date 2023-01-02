@@ -6,8 +6,8 @@ import { getPaginatedResult } from '../utils/pagination';
 import { removeTimeStamp } from '../utils/utils';
 import { validateItemCreation, validateItemUpdate } from '../validations/itemValidations';
 
-export const findItems = async (pageable: IPageableQuery): Promise<IPageableResponse<IItem>> => {
-    return getPaginatedResult<IItem>(Item, pageable);
+export const findItems = async (query: IPageableQuery): Promise<IPageableResponse<IItem>> => {
+    return getPaginatedResult<IItem>(Item, query);
 };
 
 export const createItem = async (item: IItem): Promise<IItem> => {

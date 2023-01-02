@@ -7,6 +7,6 @@ export default function errorHandler(err: any, req: any, res: any, next: any) {
             errors,
         });
     } else {
-        res.status(500).send();
+        res.status(500).json({ error: err.message });
     }
 }

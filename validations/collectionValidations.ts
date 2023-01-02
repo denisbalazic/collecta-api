@@ -43,6 +43,17 @@ const checkIfNameExists = async (collection: ICollection, collectionId: string |
     return null;
 };
 
+const checkForItemPropertyLabelDuplicates = async (collection: ICollection) => {
+    const duplicateLabels = collection.itemProperties.map((p) => p.label).filter((p, i, arr) => arr.indexOf(p) !== i);
+    if (duplicateLabels.length > 0) {
+        return {
+            field: 'itemProperties',
+            message: `Duplicate item property labels found: ${duplicateLabels.join(', ')}`,
+        };
+    }
+    return null;
+};
+
 const checkIdEquality = async (collection: ICollection, collectionId: string) => {
     if (collection._id && collection._id !== collectionId) {
         return {
@@ -59,6 +70,9 @@ export const validateCollectionCreation = async (collection: ICollection): Promi
     const nameExistsErr = await checkIfNameExists(collection, null);
     if (nameExistsErr) validationErrors.push(nameExistsErr);
 
+    const duplicateItemPropertyLabelsErr = await checkForItemPropertyLabelDuplicates(collection);
+    if (duplicateItemPropertyLabelsErr) validationErrors.push(duplicateItemPropertyLabelsErr);
+
     if (validationErrors.length > 0) {
         throw new CustomError(400, validationErrors, 'Validation failed for user creation');
     }
@@ -72,6 +86,9 @@ export const validateCollectionUpdate = async (collection: ICollection, collecti
 
     const idEqualityErr = await checkIdEquality(collection, collectionId);
     if (idEqualityErr) validationErrors.push(idEqualityErr);
+
+    const duplicateItemPropertyLabelsErr = await checkForItemPropertyLabelDuplicates(collection);
+    if (duplicateItemPropertyLabelsErr) validationErrors.push(duplicateItemPropertyLabelsErr);
 
     if (validationErrors.length > 0) {
         throw new CustomError(400, validationErrors, '');

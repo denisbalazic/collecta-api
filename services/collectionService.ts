@@ -6,8 +6,8 @@ import { IPageableQuery, IPageableResponse } from '../domain/response';
 import { getPaginatedResult } from '../utils/pagination';
 import { removeTimeStamp } from '../utils/utils';
 
-export const findCollections = async (pageable: IPageableQuery): Promise<IPageableResponse<ICollection>> => {
-    return getPaginatedResult<ICollection>(Collection, pageable);
+export const findCollections = async (query: IPageableQuery): Promise<IPageableResponse<ICollection>> => {
+    return getPaginatedResult<ICollection>(Collection, query);
 };
 
 export const createCollection = async (collection: ICollection): Promise<ICollection> => {

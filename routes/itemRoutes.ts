@@ -2,17 +2,15 @@ import express from 'express';
 import { createItem, deleteItem, findItem, findItems, updateItem } from '../services/itemService';
 import { authenticate } from '../middleware/auth';
 import { IItem } from '../domain/item';
-import { IPageableResponse } from '../domain/response';
+import { IPageableQuery, IPageableResponse } from '../domain/response';
+import { parseFilters } from '../utils/pagination';
 
 const router = express.Router({ mergeParams: true });
 
 router.get('/', async (req, res, next) => {
     try {
-        const foundItems: IPageableResponse<IItem> = await findItems({
-            ...req.query,
-            filter: req.query.id?.toString(),
-            filterBy: 'collectionId',
-        });
+        const query = { ...req.query, filters: parseFilters(req.query.filters as string) } as IPageableQuery;
+        const foundItems: IPageableResponse<IItem> = await findItems(query);
         if (!foundItems) {
             res.status(404).send('There are no items with those parameters');
         }
