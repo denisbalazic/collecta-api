@@ -3,36 +3,37 @@ import {
     CollectionType,
     CollectionVisibility,
     ICollection,
-    IItemProperty,
+    IItemPropertySchema,
     ItemPropertyType,
 } from '../domain/collection';
 
-export const itemPropertySchema = new mongoose.Schema<IItemProperty>(
-    {
-        label: {
-            type: String,
-            required: true,
-            minlength: 2,
-            maxlength: 24,
-        },
-        type: {
-            type: String,
-            required: true,
-            enum: ItemPropertyType,
-        },
-        required: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
-        unique: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
+export const itemPropertySchema = new mongoose.Schema<IItemPropertySchema>({
+    label: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 24,
     },
-    { _id: false }
-);
+    type: {
+        type: String,
+        required: true,
+        enum: ItemPropertyType,
+    },
+    required: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
+    unique: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
+    options: {
+        type: [String],
+        required: false,
+    },
+});
 
 const collectionSchema = new mongoose.Schema<ICollection>(
     {

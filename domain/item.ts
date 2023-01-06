@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 import { IWithTimeStamp } from './mongo';
-import { IItemProperty } from './collection';
+
+export interface IItemProperty {
+    itemPropertyId: string;
+    value?: string | number | boolean;
+}
 
 export interface IItem extends IWithTimeStamp {
     _id?: string;

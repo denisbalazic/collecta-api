@@ -1,6 +1,15 @@
 import mongoose from 'mongoose';
-import { IItem } from '../domain/item';
-import { itemPropertySchema } from './collectionModel';
+import { IItem, IItemProperty } from '../domain/item';
+
+export const propertySchema = new mongoose.Schema<IItemProperty>({
+    itemPropertyId: {
+        type: String,
+        required: true,
+    },
+    value: {
+        type: String,
+    },
+});
 
 const itemSchema = new mongoose.Schema<IItem>(
     {
@@ -14,7 +23,7 @@ const itemSchema = new mongoose.Schema<IItem>(
             trim: true,
         },
         properties: {
-            type: [itemPropertySchema],
+            type: [propertySchema],
             required: true,
         },
     },

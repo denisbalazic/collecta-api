@@ -21,7 +21,7 @@ export const parseFilters = (filters: string | undefined): IFilter[] => {
 
 const mapFilters = (filters: IFilter[] | undefined): any => {
     const mappedFilters: any = {};
-    if (filters) {
+    if (filters && filters.length > 0) {
         filters.forEach((filter) => {
             mappedFilters[filter.property] = filter.value;
         });

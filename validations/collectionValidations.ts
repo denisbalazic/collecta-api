@@ -14,16 +14,18 @@ const collectionSchema = Joi.object().keys({
     visibility: Joi.string()
         .valid(...Object.values(CollectionVisibility))
         .required(),
-    admins: Joi.array().items(Joi.string()).required(),
+    admins: Joi.array().items(Joi.string().alphanum().min(24).max(24)).required(),
     openItemUpdating: Joi.boolean().required(),
     itemProperties: Joi.array()
         .items({
+            _id: Joi.string().alphanum().min(24).max(24),
             label: Joi.string().min(2).max(24).required(),
             type: Joi.string()
                 .valid(...Object.values(ItemPropertyType))
                 .required(),
             required: Joi.boolean(),
             unique: Joi.boolean(),
+            options: Joi.array().items(Joi.string().min(2).max(24)),
         })
         .required(),
 });

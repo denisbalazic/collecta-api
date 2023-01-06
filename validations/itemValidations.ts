@@ -1,21 +1,18 @@
 import Joi from 'joi';
-import { Collection } from 'mongoose';
+import Collection from '../models/collectionModel';
 import { processJoiValidationErrors } from '../utils/utils';
-import { IItem } from '../domain/item';
+import { IItem, IItemProperty } from '../domain/item';
 import { CustomError } from '../utils/CustomError';
-import { IItemProperty, ItemPropertyType } from '../domain/collection';
+import { IItemPropertySchema } from '../domain/collection';
 
 const itemSchema = Joi.object().keys({
     collectionId: Joi.string().alphanum().min(24).max(24).required(),
     image: Joi.string().uri(),
     properties: Joi.array()
         .items({
-            label: Joi.string().min(2).max(24).required(),
-            type: Joi.string()
-                .valid(...Object.values(ItemPropertyType))
-                .required(),
-            // TODO: Add validation for value
-            value: Joi.string().required(),
+            itemPropertyId: Joi.string().min(2).max(24).required(),
+            // TODO: Add validation for value; can be string, number or boolean
+            value: Joi.alternatives().try(Joi.string(), Joi.number(), Joi.boolean()),
         })
         .required(),
 });
@@ -37,14 +34,12 @@ const checkIdEquality = async (item: IItem, itemId: string) => {
 const checkIfItemPropertiesExistInCollection = async (item: IItem) => {
     const collection = await Collection.findOne({ _id: item.collectionId });
     // eslint-disable-next-line consistent-return
-    item.properties.forEach((p: IItemProperty) => {
-        const propertyExists = collection?.itemProperties.find(
-            (c: IItemProperty) => c.label === p.label && c.type === p.type
-        );
+    item.properties?.forEach((p: IItemProperty) => {
+        const propertyExists = collection?.itemProperties.find((c: IItemPropertySchema) => c._id === p.itemPropertyId);
         if (!propertyExists) {
             return {
-                field: p.label,
-                message: `Property ${p.label} is not valid for items in this collection`,
+                field: p.itemPropertyId,
+                message: `Property with id '${p.itemPropertyId}' and value '${p.value}' is not valid for items in this collection`,
             };
         }
     });
