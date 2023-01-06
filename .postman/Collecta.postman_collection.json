@@ -237,7 +237,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/collections?page=1&size=10",
+							"raw": "{{url}}/collections?page=1&size=10&filters=type:COMIC:eq;openItemUpdating:true:eq",
 							"host": [
 								"{{url}}"
 							],
@@ -252,6 +252,10 @@
 								{
 									"key": "size",
 									"value": "10"
+								},
+								{
+									"key": "filters",
+									"value": "type:COMIC:eq;openItemUpdating:true:eq"
 								}
 							]
 						},
@@ -269,7 +273,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Hulk3\",\r\n    \"description\": \"bla bla\",\r\n    \"type\": \"COMIC\",\r\n    \"visibility\": \"PUBLIC\",\r\n    \"admins\": [\"jhksdfgj\"],\r\n    \"openItemUpdating\": true,\r\n    \"itemProperties\": [{\r\n        \"label\": \"name\", \r\n        \"type\": \"TEXT\", \r\n        \"required\": true, \r\n        \"unique\": true\r\n    }]\r\n}",
+							"raw": "{\r\n    \"name\": \"Hulk6\",\r\n    \"description\": \"bla bla\",\r\n    \"type\": \"COMIC\",\r\n    \"visibility\": \"PUBLIC\",\r\n    \"admins\": [\"63b870f22699e3a5f348e458\"],\r\n    \"openItemUpdating\": true,\r\n    \"itemProperties\": [{\r\n        \"label\": \"name\", \r\n        \"type\": \"TEXT\", \r\n        \"required\": true, \r\n        \"unique\": true\r\n    }]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -295,13 +299,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/collections/6207a4ad48e6c1fceb13199c",
+							"raw": "{{url}}/collections/63b8731667d7917c904034d5",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"collections",
-								"6207a4ad48e6c1fceb13199c"
+								"63b8731667d7917c904034d5"
 							]
 						},
 						"description": "show collection with specified id"
@@ -315,7 +319,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"_id\": \"6207a4ad48e6c1fceb13199c\",\r\n    \"name\": \"CraftBeer\"\r\n}",
+							"raw": "{\r\n    \"_id\": \"63b8731667d7917c904034d5\",\r\n    \"name\": \"Hulk77\",\r\n    \"description\": \"bla bla\",\r\n    \"type\": \"COMIC\",\r\n    \"visibility\": \"PUBLIC\",\r\n    \"admins\": [\r\n        \"63b870f22699e3a5f348e458\"\r\n    ],\r\n    \"openItemUpdating\": true,\r\n    \"itemProperties\": [\r\n        {\r\n            \"label\": \"name\",\r\n            \"type\": \"TEXT\",\r\n            \"required\": true,\r\n            \"unique\": true,\r\n            \"options\": [],\r\n            \"_id\": \"63b8731667d7917c904034d6\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -323,13 +327,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/collections/6207a4ad48e6c1fceb13199c",
+							"raw": "{{url}}/collections/63b8731667d7917c904034d5",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"collections",
-								"6207a4ad48e6c1fceb13199c"
+								"63b8731667d7917c904034d5"
 							]
 						}
 					},
@@ -341,13 +345,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/collections/6208dd4ace473d4776343b7d",
+							"raw": "{{url}}/collections/63aeed4e9ad6800a071f5868",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"collections",
-								"6208dd4ace473d4776343b7d"
+								"63aeed4e9ad6800a071f5868"
 							]
 						},
 						"description": "show collection with specified id"
@@ -365,7 +369,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/items?page=1&size=5",
+							"raw": "{{url}}/items?page=1&size=5&filters=collectionId:6207a4ad48e6c1fceb13199c:eq&sortBy=collectionId&sort=desc",
 							"host": [
 								"{{url}}"
 							],
@@ -380,6 +384,18 @@
 								{
 									"key": "size",
 									"value": "5"
+								},
+								{
+									"key": "filters",
+									"value": "collectionId:6207a4ad48e6c1fceb13199c:eq"
+								},
+								{
+									"key": "sortBy",
+									"value": "collectionId"
+								},
+								{
+									"key": "sort",
+									"value": "desc"
 								}
 							]
 						},
@@ -397,7 +413,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"collectionId\": \"6207a4ad48e6c1fceb13199c\",\r\n    \"properties\": [{\"label\": \"name\", \"type\": \"TEXT\", \"value\": \"sdfsd\"}]\r\n}",
+							"raw": "{\r\n    \"collectionId\": \"6207a4ad48e6c1fceb13199c\",\r\n    \"properties\": [{\"itemPropertyId\": \"6207a4b798e6c1fcd343199c\", \"value\": \"sdfsd\"}]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -418,18 +434,18 @@
 					"response": []
 				},
 				{
-					"name": "show items",
+					"name": "show item",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/items/6207a4ad48e6c1fceb13199c",
+							"raw": "{{url}}/items/63b1c762a6138c5df5b545c6",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"items",
-								"6207a4ad48e6c1fceb13199c"
+								"63b1c762a6138c5df5b545c6"
 							]
 						},
 						"description": "show collection with specified id"
@@ -437,13 +453,13 @@
 					"response": []
 				},
 				{
-					"name": "update items",
+					"name": "update item",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"_id\": \"6207a4ad48e6c1fceb13199c\",\r\n    \"name\": \"CraftBeer\"\r\n}",
+							"raw": "{\r\n    \"_id\": \"63b1c762a6138c5df5b545c6\",\r\n    \"collectionId\": \"63b870f22699e3a5f348ea65\",\r\n    \"properties\": [\r\n      {\r\n        \"itemPropertyId\": \"6207a4b798e6c1fcd343199c\",\r\n        \"value\": \"sdfsd\"\r\n      }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -451,13 +467,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/items/6207a4ad48e6c1fceb13199c",
+							"raw": "{{url}}/items/63b1c762a6138c5df5b545c6",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"items",
-								"6207a4ad48e6c1fceb13199c"
+								"63b1c762a6138c5df5b545c6"
 							]
 						}
 					},
