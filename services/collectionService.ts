@@ -23,9 +23,9 @@ export const findCollection = async (id: string): Promise<ICollection | null> =>
 };
 
 export const updateCollection = async (collection: ICollection, id: string): Promise<ICollection> => {
-    await validateCollectionUpdate(removeTimeStamp<ICollection>(collection), id);
     const foundCollection: ICollectionModel | null = await Collection.findOne({ _id: id });
     if (!foundCollection) throw new CustomError(404, [], 'Resource not found');
+    await validateCollectionUpdate(removeTimeStamp<ICollection>(collection), id);
     return foundCollection.set(collection).save();
 };
 

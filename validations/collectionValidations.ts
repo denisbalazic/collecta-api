@@ -46,8 +46,8 @@ const checkIfNameExists = async (collection: ICollection, collectionId: string |
 };
 
 const checkForItemPropertyLabelDuplicates = async (collection: ICollection) => {
-    const duplicateLabels = collection.itemProperties.map((p) => p.label).filter((p, i, arr) => arr.indexOf(p) !== i);
-    if (duplicateLabels.length > 0) {
+    const duplicateLabels = collection.itemProperties?.map((p) => p.label).filter((p, i, arr) => arr.indexOf(p) !== i);
+    if (duplicateLabels?.length > 0) {
         return {
             field: 'itemProperties',
             message: `Duplicate item property labels found: ${duplicateLabels.join(', ')}`,
